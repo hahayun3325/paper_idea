@@ -161,7 +161,7 @@ solution:
 
 4. tracking
 
-- camshaft(continuous adaptive mean shift used to track the head position)
+- camshift(continuous adaptive mean shift used to track the head position)
   - CAMSHIFT, short for "Continuously Adaptive Mean Shift", is a computer vision algorithm used for object tracking. It is based on the Mean Shift algorithm and iteratively updates the target location by finding the maximum density of probability distribution in a given region of interest. It was initially used to track the human face, but it has since been adapted for other tracking tasks in computer vision.
 - adaboost with HOG
   - AdaBoost with HOG (Histogram of Oriented Gradients) is a machine learning algorithm used for object detection and image recognition tasks. It combines the AdaBoost algorithm, which is a boosting algorithm that iteratively combines multiple weak classifiers to create a strong classifier, with HOG feature extraction, which computes the histogram of gradient directions in an image to capture local object appearance and shape. The resulting classifier is able to accurately detect and recognize objects in an image by identifying the presence of specific HOG features.
@@ -186,10 +186,11 @@ classified into two sets, namely training and testing datasets
   - A hybrid classifier is a type of machine learning model that combines multiple algorithms or techniques to achieve better classification accuracy. It usually involves combining the strengths of two or more classifiers to improve their overall performance. For example, a hybrid classifier may use both decision trees and support vector machines to improve classification accuracy.
 
 8. evaluation stage
+   - using test datasets for validation
 
+### Sec2 Modalities of SLR
 
-
-### Modalities of SLR
+modality, preprocessing and the various feature extraction methods
 
 classification of SLR
 
@@ -227,33 +228,123 @@ along with the above methods, functions that reduce the feature vector dimension
 
 Principal Component Analysis (PCA) is a technique used to transform correlated data into uncorrelated data.
 
-### literature study about SLR
+### Sec3 literature study about SLR
 
 Ordinary people also communicate information in the noisy area of public places and the library without disturbing others. **Manuel** (communication by hands) and **non-manual** (communication by body posture or facial expression) medium are usually used in sign language.
 
 #### Manual SLR
 
-components  are as below
+Here is the diagram representing the manual components:
+
+![Manual Components Diagram](https://showme.redstarplugin.com/s/eKsy0Nbv)
+
+
+
+[You can edit this diagram online if you want to make any changes.](https://showme.redstarplugin.com/s/F72kmt0L)
 
 ![image-20230503223131280](ref_note.assets/image-20230503223131280.png)
 
 The manual SLR is classified into isolated and continuous.
 
-**classical methods:**
+**classical methods:**(mostly the machine learning methods)
 
 1. sequential Pattern Tree-based multi-class classifier performs better than the Hidden Markov Model.
-
 2. data fusion incurred ANN-based Thai SLR model. did classification using a back-propagation algorithm associated with an ANN
 3. Yin et al. [52] BP and template matching method combination. With  computation time as 0.0134 and an accuracy of 99.8%. isolated hand gesture recognition.
 4. Jane and Sasidhar [53]: ANN classifier with association of data fusion. three hidden layers ANN with wavelet denoising and TKEO(TeagerKaiser energy operator). 93.27%.
 5. ANN [11] varying dataset size (50 to 1500) and classifier (1 to 10).  97.4 % recognition accuracy
 6. Almeida et al. [54]TODO and next time focus on deep learning method than classic method.
+6. Chinese Sign language recognition + sensor fusion decision tree and Multi-Stream Hidden Markov Models classifier
 
 **deep learning method**
 
-TODO first 2023.5.3
+1. single and fusion parallel 3D CNN. [46]
+2. CNN+ LSTM for Turkish SLR[27]. Also with FPM(feature pooling module) to improve feature extraction and attention model to speed up convergence
+3.  DCNN(deep convolution)+ LSTM for hand gesture recognition[24]. And use residual module overcome the gradient vanishing and overfitting problem. Using DFFN() to solve gesture long-distance dependency problem?, which is way more better than other network.
+4.  BiLSTM(deep Bi-directional Long Short Term Memory recurrent neural network) for Arabic SLR model. Using Convolutional Self-Organizing Map for hand shape feature extraction, DeepLabv3+ for hand regions extrations[2]. Model is suitable for an isolated sign, continuous sign based analysis.
+5. SSD(Single Shot Detector), 2DCNN, 3DCNN and LSTM based pipe-line architecture were proposed to recognize the hand sign language automatically[3]2020. This is a multi-modal hand skeleton-based SLR model.
 
-1. 
+Attention: before choosing a method, referring Table4 first(time, pros and cons). 
+
+#### Continuous Manual SLR
+
+Important! Higher priority than others!(Most closest to our environment)
+
+Is more complex for there is no clear pause after each gesture.
+
+1. traditional method
+
+- PCA+ short term Foutier transform+ RBF(radial basis function) associated SVM. Contactless sensing and environment independent. Test on 20 signs, 7 subjects[37]2021.
+
+1. Cross model based related work on continuous manual SLR
+
+- 3DCNN+ FC-RNN to localize the continuous video temporal boundaries, SVM to recognize sign actions[66]2018.
+- 3DCNN(MLP and auto encoder-based feature extracted)+ an open pose framework to capture hand feature[23]2020
+- examined the performance of three models: time-LeNet, t-LeNet(time), and MC-DCNN[67]2020
+- spatial and temporal fused Attention incurred Bi directional long term memory network. And Multi-Plane Vector Relation(MPVR) is used to get skeletal features[68]2020.
+- a cross-model learning-based continuous model, and proved validity with **three public datasets**[69]2020
+
+More information of different methods in Table5 and Figure7.
+
+#### Non-Manual SLR
+
+![image-20230517143255032](ref_note.assets/image-20230517143255032.png)
+
+The non-manual SLR can also be classified as isolated and continuous. Since there is little emphasis on hand gesture recognition in this part, it can be left as is.
+
+### Sec4 Classification architectures
+
+![image-20230517150518969](ref_note.assets/image-20230517150518969.png)
+
+- ANN
+
+like back propagation, multi-layer and recurrent neural networks
+
+but handling large data is difficult
+
+- HMM
+
+complication:
+
+1. likelihood of observation
+2. best hidden state sequence decoding
+3. HMM, parameter framing
+
+- 2DCNN
+
+drawback: parameter need for 2DCNN is excessively more, which makes the design process complex
+
+- 3DCNN
+
+spatio-temporal data has directly represented hierarchically
+
+but concerns to the long-term temporal dependence sign capturing 3DCNN cannot assure robustness.
+
+- LSTM
+
+eliminate the long-term dependence problem
+
+- hybrid-based approach
+
+can improve the accuracy
+
+**A. Traditional architectures**
+
+TODO 5.14
+
+### Sec5 Different types of sensing approach
+
+
+
+### Sec6 Discusstion
+
+
+
+### Sec7 Future direction and research score
+
+
+
+### Sec8 Conclusion
 
 # Federated learning
 
